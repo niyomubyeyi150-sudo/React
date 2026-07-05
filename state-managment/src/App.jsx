@@ -3,7 +3,8 @@ import Home from "./pages/Home";
 import AddPage from "./pages/Addpage";
 import Story from "./pages/story";
 import EditPage from "./pages/EditPage";
-import Register from "./pages/register"; // Ensure this matches your file name capitalization
+import Register from "./pages/register";
+import Login from "./pages/login"; // Ensure this matches your file name capitalization
 
 export default function App() {
   return (
@@ -13,6 +14,8 @@ export default function App() {
       
       {/* 2. Public Registration Route with the fixed uppercase component tag */}
       <Route path="/register" element={<Register />} />
+      {/*  2. Add your new independent Login Route path right here */}
+      <Route path="/login" element={<Login />} />
       
       {/* 3. Core application paths */}
       <Route path="/home" element={<Home />} />

@@ -2,7 +2,9 @@
 
 const BASE_URL = "https://sms-express-app-1-production-a843.up.railway.app"; 
 
-
+/**
+ * Step 1: Submit email and password to receive an OTP code
+ */
 export async function getRegister(email, password) {
   try {
     const response = await fetch(`${BASE_URL}/api/auth/register`, {
@@ -16,12 +18,12 @@ export async function getRegister(email, password) {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || "Registration failed");
+      // 🚀 FIX: Swapped data.message for data.error to match your real Railway backend format
+      throw new Error(data.error || "Registration failed");
     }
 
     return data; 
   } catch (error) {
-    // 🚀 FIXED: Fixed the misplaced syntax formatting here
     console.error("API Error at fetch line:", error);
     throw error; 
   }
@@ -37,20 +39,46 @@ export async function verifyEmail(email, otp) {
       headers: {
         "Content-Type": "application/json",
       },
-      // Note: Based on your Swagger layout, it needs both email and the otp code
       body: JSON.stringify({ email, otp }), 
     });
 
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || "Invalid or expired verification code");
+      //  FIX: Fallback to data.error if data.message doesn't exist
+      throw new Error(data.error || data.message || "Invalid or expired verification code");
     }
 
-    // This data usually contains your real accessToken login keys!
     return data; 
   } catch (error) {
     console.error("API Error at verification line:", error);
+    throw error;
+  }
+}
+
+/**
+ * Step 3: Log in an existing user with email and password
+ */
+export async function getLogin(email, password) {
+  try {
+    const response = await fetch(`${BASE_URL}/api/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      // 🚀 FIX: Swapped data.message for data.error to catch "Invalid password" or user errors
+      throw new Error(data.error || "Login failed. Please check your credentials.");
+    }
+
+    return data; 
+  } catch (error) {
+    console.error("API Error at login line:", error);
     throw error;
   }
 }
