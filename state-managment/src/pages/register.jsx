@@ -48,7 +48,7 @@ export default function Register() {
       }
       
       setLoading(false);
-      navigate("/home"); // Sends verified users to the stories dashboard layout
+      navigate("/login"); // Sends verified users to the stories dashboard layout
       
     } catch (err) {
       setLoading(false);
