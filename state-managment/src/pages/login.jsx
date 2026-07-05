@@ -81,4 +81,15 @@ export default function Login() {
       </form>
     </div>
   );
+  // Place this right underneath your closing </form> tag inside the login form layout container
+<div style={{ marginTop: "15px", textAlign: "center", fontSize: "14px" }}>
+  Don't have an account yet?{" "}
+  <span 
+    onClick={() => navigate("/register")} 
+    style={{ color: "#007bff", cursor: "pointer", textDecoration: "underline" }}
+  >
+    Register here
+  </span>
+</div>
+
 }

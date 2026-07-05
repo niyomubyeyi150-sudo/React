@@ -1,11 +1,20 @@
 import { useEffect, useState } from "react";
 import { getStories } from "../API/stories";
 import StoryList from "../components/StoryList"; 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; 
 
 export default function Home() {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
+  
+  const navigate = useNavigate(); 
+
+  // 🔐 The Logout Controller Function
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    navigate("/login"); // Instantly sends user back to the login screen gate
+  };
 
   useEffect(() => {
     async function fetchStory() {
@@ -47,6 +56,34 @@ export default function Home() {
         background: "#f5f7fb",
       }}
     >
+      {/* 🚀 ADDED: Sticky Minimal Dark Navbar Bar for clean Logout Navigation */}
+      <nav style={{ 
+        display: "flex", 
+        justifyContent: "space-between", 
+        alignItems: "center", 
+        padding: "12px 30px", 
+        background: "#1e293b", 
+        color: "#fff",
+        boxShadow: "0 2px 4px rgba(0,0,0,0.05)"
+      }}>
+        <span style={{ fontWeight: "bold", fontSize: "15px", trackingLetter: "0.5px" }}>STUDENT SYSTEM</span>
+        <button 
+          onClick={handleLogout}
+          style={{ 
+            padding: "6px 14px", 
+            background: "#ef4444", 
+            color: "#fff", 
+            border: "none", 
+            borderRadius: "6px", 
+            fontWeight: "bold", 
+            fontSize: "13px",
+            cursor: "pointer",
+          }}
+        >
+          Logout
+        </button>
+      </nav>
+
       {/* Hero Section */}
       <header
         style={{
@@ -106,7 +143,7 @@ export default function Home() {
             fontWeight: "bold",
           }}
         >
-            <Link to="/add" style={{color: "#2563eb"}}>Add New Story</Link>
+            <Link to="/add" style={{color: "#2563eb", textDecoration: "none"}}>Add New Story</Link>
         </div>
       </header>
 

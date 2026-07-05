@@ -122,8 +122,19 @@ export default function Register() {
           >
             {loading ? "Registering..." : "Register"}
           </button>
-        </form>
+        </form> 
       )}
     </div>
   );
+  // Place this right underneath your closing </form> tag inside the initial form view (View A)
+<div style={{ marginTop: "15px", textAlign: "center", fontSize: "14px" }}>
+  Already have an account?{" "}
+  <span 
+    onClick={() => navigate("/login")} 
+    style={{ color: "#007bff", cursor: "pointer", textDecoration: "underline" }}
+  >
+    Login here
+  </span>
+</div>
+
 }
